@@ -1,7 +1,6 @@
 package com.princz_mia.viaubv18_coffee_shop.address;
 
 import com.princz_mia.viaubv18_coffee_shop.country.Country;
-import com.princz_mia.viaubv18_coffee_shop.product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

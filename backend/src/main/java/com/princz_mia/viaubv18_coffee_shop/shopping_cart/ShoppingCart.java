@@ -1,6 +1,5 @@
 package com.princz_mia.viaubv18_coffee_shop.shopping_cart;
 
-import com.princz_mia.viaubv18_coffee_shop.product.Product;
 import com.princz_mia.viaubv18_coffee_shop.site_user.SiteUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

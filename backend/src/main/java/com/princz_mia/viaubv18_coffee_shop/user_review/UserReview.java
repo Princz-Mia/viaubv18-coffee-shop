@@ -1,9 +1,7 @@
 package com.princz_mia.viaubv18_coffee_shop.user_review;
 
-import com.princz_mia.viaubv18_coffee_shop.address.Address;
 import com.princz_mia.viaubv18_coffee_shop.product.Product;
 import com.princz_mia.viaubv18_coffee_shop.site_user.SiteUser;
-import com.princz_mia.viaubv18_coffee_shop.user_role.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
