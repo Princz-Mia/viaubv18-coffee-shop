@@ -1,19 +1,18 @@
 package com.princz_mia.viaubv18_coffee_shop.product;
 
+import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.product_category.ProductCategory;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Product extends Auditable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "id")

@@ -1,13 +1,14 @@
 package com.princz_mia.viaubv18_coffee_shop.shopping_cart;
 
-import com.princz_mia.viaubv18_coffee_shop.site_user.SiteUser;
+import com.princz_mia.viaubv18_coffee_shop.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShoppingCart {
@@ -17,5 +18,5 @@ public class ShoppingCart {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private SiteUser siteUser;
+    private User user;
 }

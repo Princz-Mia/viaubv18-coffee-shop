@@ -1,20 +1,19 @@
 package com.princz_mia.viaubv18_coffee_shop.shopping_cart_item;
 
+import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.product.Product;
 import com.princz_mia.viaubv18_coffee_shop.shopping_cart.ShoppingCart;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingCartItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class ShoppingCartItem extends Auditable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")

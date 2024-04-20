@@ -1,20 +1,25 @@
-package com.princz_mia.viaubv18_coffee_shop.site_user;
+package com.princz_mia.viaubv18_coffee_shop.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.princz_mia.viaubv18_coffee_shop.address.Address;
+import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.user_role.UserRole;
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SiteUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+public class User extends Auditable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -24,9 +29,15 @@ public class SiteUser {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private UserRole role;
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private String emailAddress;
     private String password;
+    private Integer loginAttempts;
+    private LocalDateTime lastLogin;
+    private boolean isAccountNonLocked;
+    private boolean isAccountEnabled;
 }

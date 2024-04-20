@@ -1,21 +1,20 @@
 package com.princz_mia.viaubv18_coffee_shop.shipping_method;
 
+import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShippingMethod {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class ShippingMethod extends Auditable {
 
     private String name;
     private Double price;

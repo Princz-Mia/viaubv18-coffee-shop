@@ -1,19 +1,18 @@
 package com.princz_mia.viaubv18_coffee_shop.address;
 
+import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.country.Country;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Address extends Auditable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "country_id", referencedColumnName = "id")
