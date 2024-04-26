@@ -1,7 +1,7 @@
 package com.princz_mia.viaubv18_coffee_shop.product;
 
 import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
-import com.princz_mia.viaubv18_coffee_shop.product_category.ProductCategory;
+import com.princz_mia.viaubv18_coffee_shop.product.category.ProductCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Product extends Auditable {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory category;
 
