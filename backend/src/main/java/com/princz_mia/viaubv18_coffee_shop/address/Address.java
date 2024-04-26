@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Address extends Auditable {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
 
