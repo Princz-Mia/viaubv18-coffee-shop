@@ -1,4 +1,4 @@
-package com.princz_mia.viaubv18_coffee_shop.order_status;
+package com.princz_mia.viaubv18_coffee_shop.order.status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
