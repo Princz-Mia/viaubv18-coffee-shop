@@ -3,15 +3,10 @@ package com.princz_mia.viaubv18_coffee_shop.credential;
 import com.fasterxml.jackson.annotation.*;
 import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,6 +18,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Credential extends Auditable {
 
+    @Column(nullable = false)
     private String password;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
