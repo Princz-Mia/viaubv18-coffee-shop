@@ -1,7 +1,7 @@
 package com.princz_mia.viaubv18_coffee_shop.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.princz_mia.viaubv18_coffee_shop.exceptions.AppException;
+import com.princz_mia.viaubv18_coffee_shop.exception.AppException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.AlternativeJdkIdGenerator;
 
 import java.time.LocalDateTime;
@@ -57,7 +58,7 @@ public abstract class Auditable {
     public void beforePersist() {
         Long userId = RequestContext.getUserId();
         if (userId == null)
-            throw new AppException("Cannot persist entity without user ID in RequestContext for this thread.");
+            throw new AppException("Cannot persist entity without user ID in RequestContext for this thread.", HttpStatus.NOT_FOUND);
         setCreatedAt(LocalDateTime.now());
         setCreatedBy(userId);
         //setUpdatedAt(LocalDateTime.now());
@@ -68,7 +69,7 @@ public abstract class Auditable {
     public void beforeUpdate() {
         Long userId = RequestContext.getUserId();
         if (userId == null)
-            throw new AppException("Cannot update entity without user ID in RequestContext for this thread.");
+            throw new AppException("Cannot update entity without user ID in RequestContext for this thread.", HttpStatus.NOT_FOUND);
         setUpdatedAt(LocalDateTime.now());
         setUpdatedBy(userId);
     }
