@@ -1,4 +1,4 @@
-package com.princz_mia.viaubv18_coffee_shop.shopping_cart_item;
+package com.princz_mia.viaubv18_coffee_shop.shopping_cart.item;
 
 import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.product.Product;
@@ -15,11 +15,11 @@ import lombok.*;
 @AllArgsConstructor
 public class ShoppingCartItem extends Auditable {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private ShoppingCart shoppingCart;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
