@@ -1,8 +1,8 @@
-package com.princz_mia.viaubv18_coffee_shop.order_item;
+package com.princz_mia.viaubv18_coffee_shop.order.item;
 
 import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.product.Product;
-import com.princz_mia.viaubv18_coffee_shop.shop_order.ShopOrder;
+import com.princz_mia.viaubv18_coffee_shop.order.ShopOrder;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,11 +15,11 @@ import lombok.*;
 @AllArgsConstructor
 public class OrderItem extends Auditable {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private ShopOrder order;
 
