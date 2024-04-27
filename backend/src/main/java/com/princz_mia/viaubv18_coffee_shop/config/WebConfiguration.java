@@ -16,6 +16,7 @@ import java.util.Arrays;
 public class WebConfiguration {
 
     private static final String ORIGIN_URL = "http://localhost:3000";
+    private static final Long MAX_AGE = 3600L;
 
     @Bean
     public CorsFilter corsFilter() {
@@ -35,7 +36,7 @@ public class WebConfiguration {
                 HttpMethod.PUT.name(),
                 HttpMethod.DELETE.name()
         ));
-        config.setMaxAge(3600L);
+        config.setMaxAge(MAX_AGE);
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
