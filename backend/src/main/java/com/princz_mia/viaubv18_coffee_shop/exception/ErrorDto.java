@@ -1,4 +1,13 @@
 package com.princz_mia.viaubv18_coffee_shop.exception;
 
-public record ErrorDto (String message) {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
+@Builder
+public class ErrorDto {
+
+    private String message;
 }
