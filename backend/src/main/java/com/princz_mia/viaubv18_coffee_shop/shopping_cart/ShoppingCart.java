@@ -12,11 +12,24 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShoppingCart {
+
+    @SequenceGenerator(
+            name = "shopping_cart_sequence",
+            sequenceName = "shopping_cart_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "shopping_cart_sequence"
+    )
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    public ShoppingCart(User user) {
+        this.user = user;
+    }
 }
