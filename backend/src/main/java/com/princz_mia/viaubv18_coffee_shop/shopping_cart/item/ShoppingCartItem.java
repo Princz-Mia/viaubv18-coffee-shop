@@ -13,9 +13,21 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingCartItem extends Auditable {
+public class ShoppingCartItem {
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @SequenceGenerator(
+            name = "shopping_cart_item_sequence",
+            sequenceName = "shopping_cart_item_sequence",
+            allocationSize = 1
+    )
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "shopping_cart_item_sequence"
+    )
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private ShoppingCart shoppingCart;
 
