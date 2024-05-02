@@ -57,10 +57,14 @@ public class UserService {
             throw new AppException("This email address is already in use", HttpStatus.BAD_REQUEST);
 
         User savedUser = userRepository.save(createNewUser(firstName, lastName, email));
-        Credential credential = new Credential(savedUser, password);
+
+        String encodedPassword = passwordConfiguration.bCryptPasswordEncoder().encode(password);
+        Credential credential = new Credential(savedUser, encodedPassword);
         credentialRepository.save(credential);
+
         Confirmation confirmation = new Confirmation(savedUser);
         confirmationRepository.save(confirmation);
+
         publisher.publishEvent(new UserEvent(savedUser, EventType.REGISTRATION, Map.of("key", confirmation.getKey())));
     }
 
