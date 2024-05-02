@@ -33,6 +33,36 @@ public class ProductService {
                 .build();
     }
 
+    public ProductPageResponse getProductBySearchTerm(String searchTerm, int pageNumber, int pageSize) {
+        if (searchTerm == null || searchTerm.isEmpty() || searchTerm.isBlank()) {
+            return getPageOfProducts(pageNumber, pageSize);
+        }
+
+        String formattedSearchTerm = searchTerm.toLowerCase();
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Product> products = productRepository.findAllByNameContainsIgnoreCase(formattedSearchTerm, pageable);
+        List<Product> productList = products.getContent();
+
+        if (productList.isEmpty()) {
+            throw new AppException("There is no product currently available for your needs.", HttpStatus.NOT_FOUND);
+        }
+
+        return ProductPageResponse.builder()
+                .content(productList)
+                .pageNumber(products.getNumber())
+                .pageSize(products.getSize())
+                .totalElements(products.getTotalElements())
+                .totalPages(products.getTotalPages())
+                .isLast(products.isLast())
+                .build();
+    }
+
+    public Product getProductById(Long id) {
+        var product = productRepository.findById(id);
+        return product.orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
+    }
+
     public Product getProductByName(String name) {
         var product = productRepository.findByNameIgnoreCase(name);
         return product.orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
