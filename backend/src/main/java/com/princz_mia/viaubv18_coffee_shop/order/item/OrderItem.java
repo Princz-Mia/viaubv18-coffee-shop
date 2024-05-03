@@ -1,6 +1,5 @@
 package com.princz_mia.viaubv18_coffee_shop.order.item;
 
-import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.product.Product;
 import com.princz_mia.viaubv18_coffee_shop.order.ShopOrder;
 import jakarta.persistence.*;
@@ -13,7 +12,19 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItem extends Auditable {
+public class OrderItem {
+
+    @SequenceGenerator(
+            name = "order_item_sequence",
+            sequenceName = "order_item_sequence",
+            allocationSize = 1
+    )
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "order_item_sequence"
+    )
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "id")

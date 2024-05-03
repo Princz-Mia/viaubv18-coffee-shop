@@ -11,8 +11,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Country {
+
+    @SequenceGenerator(
+            name = "country_sequence",
+            sequenceName = "country_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "country_sequence"
+    )
     private Long id;
 
     @Column(nullable = false)

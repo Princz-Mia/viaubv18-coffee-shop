@@ -1,7 +1,6 @@
 package com.princz_mia.viaubv18_coffee_shop.order;
 
 import com.princz_mia.viaubv18_coffee_shop.address.Address;
-import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.order.status.OrderStatus;
 import com.princz_mia.viaubv18_coffee_shop.shipping_method.ShippingMethod;
 import com.princz_mia.viaubv18_coffee_shop.user.User;
@@ -17,7 +16,19 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShopOrder extends Auditable {
+public class ShopOrder {
+
+    @SequenceGenerator(
+            name = "shop_order_sequence",
+            sequenceName = "shop_order_sequence",
+            allocationSize = 1
+    )
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "shop_order_sequence"
+    )
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -37,4 +48,8 @@ public class ShopOrder extends Auditable {
 
     private Timestamp orderDate;
     private double orderTotal;
+
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
 }

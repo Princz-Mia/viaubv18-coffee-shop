@@ -1,6 +1,5 @@
 package com.princz_mia.viaubv18_coffee_shop.shopping_cart.item;
 
-import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.product.Product;
 import com.princz_mia.viaubv18_coffee_shop.shopping_cart.ShoppingCart;
 import jakarta.persistence.*;

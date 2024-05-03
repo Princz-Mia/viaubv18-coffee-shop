@@ -1,4 +1,4 @@
-package com.princz_mia.viaubv18_coffee_shop.shipping_method;
+package com.princz_mia.viaubv18_coffee_shop.user.role;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,21 +10,20 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShippingMethod {
+public class UserRole {
 
     @SequenceGenerator(
-            name = "shipping_method_sequence",
-            sequenceName = "shipping_method_sequence",
+            name = "user_role_sequence",
+            sequenceName = "user_role_sequence",
             allocationSize = 1
     )
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "shipping_method_sequence"
+            generator = "user_role_sequence"
     )
     private Long id;
 
     private String name;
-    private String description;
-    private Double price;
+    private String authorities;
 }

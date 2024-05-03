@@ -1,7 +1,6 @@
 package com.princz_mia.viaubv18_coffee_shop.confirmation;
 
 import com.fasterxml.jackson.annotation.*;
-import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +17,19 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-public class Confirmation extends Auditable {
+public class Confirmation {
+
+    @SequenceGenerator(
+            name = "confirmation_sequence",
+            sequenceName = "confirmation_sequence",
+            allocationSize = 1
+    )
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "confirmation_sequence"
+    )
+    private Long id;
 
     private String key;
 

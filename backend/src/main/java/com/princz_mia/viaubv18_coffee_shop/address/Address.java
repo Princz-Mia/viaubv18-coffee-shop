@@ -1,6 +1,5 @@
 package com.princz_mia.viaubv18_coffee_shop.address;
 
-import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.country.Country;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +11,19 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address extends Auditable {
+public class Address {
+
+    @SequenceGenerator(
+            name = "address_sequence",
+            sequenceName = "address_sequence",
+            allocationSize = 1
+    )
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "address_sequence"
+    )
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id", referencedColumnName = "id")

@@ -1,7 +1,6 @@
 package com.princz_mia.viaubv18_coffee_shop.credential;
 
 import com.fasterxml.jackson.annotation.*;
-import com.princz_mia.viaubv18_coffee_shop.audit.Auditable;
 import com.princz_mia.viaubv18_coffee_shop.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +15,19 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-public class Credential extends Auditable {
+public class Credential {
+
+    @SequenceGenerator(
+            name = "credential_sequence",
+            sequenceName = "credential_sequence",
+            allocationSize = 1
+    )
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "credential_sequence"
+    )
+    private Long id;
 
     @Column(nullable = false)
     private String password;
