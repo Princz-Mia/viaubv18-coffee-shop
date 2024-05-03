@@ -79,6 +79,7 @@ public class UserService {
                 .address(null)
                 .loginAttempts(0)
                 .lastLogin(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .isAccountNonLocked(true)
                 .isEnabled(false)
                 .build();
@@ -117,8 +118,6 @@ public class UserService {
         BeanUtils.copyProperties(user, userDto);
         userDto.setLastLogin(user.getLastLogin().toString());
         userDto.setCreatedAt(user.getCreatedAt().toString());
-        //userDto.setUpdatedAt(user.getUpdatedAt().toString());
-        userDto.setUpdatedAt("0");
         userDto.setRole(role.getName());
         userDto.setAuthorities(role.getAuthorities());
         return userDto;
