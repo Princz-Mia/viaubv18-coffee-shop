@@ -1,5 +1,8 @@
 package com.princz_mia.viaubv18_coffee_shop.config.security;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +29,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (authElements.length == 2 && authElements[0].equals("Bearer")) {
                 try {
                     SecurityContextHolder.getContext().setAuthentication(userAuthenticationProvider.validateToken(authElements[1]));
+                } catch (TokenExpiredException e) {
+                    handleTokenExpiredError(request, response, authElements[1]);
+                    return;
                 } catch (RuntimeException e) {
                     SecurityContextHolder.clearContext();
                     throw e;
@@ -33,5 +39,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private void handleTokenExpiredError(HttpServletRequest request, HttpServletResponse response, String expiredToken) throws IOException {
+        String newToken = userAuthenticationProvider.refreshExpiredToken(expiredToken);
+        response.addHeader("Authorization", "Bearer " + newToken);
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
     }
 }

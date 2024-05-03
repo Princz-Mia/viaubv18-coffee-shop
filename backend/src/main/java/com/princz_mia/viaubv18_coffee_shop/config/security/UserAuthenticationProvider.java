@@ -59,6 +59,18 @@ public class UserAuthenticationProvider {
         return new UsernamePasswordAuthenticationToken(userDto, null, Collections.emptyList());
     }
 
+    public String refreshExpiredToken(String expiredToken) {
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+
+        JWTVerifier verifier = JWT.require(algorithm).build();
+
+        DecodedJWT decoded = verifier.verify(expiredToken);
+
+        UserDto userDto = getUserDtoFromDecodedJWT(decoded);
+
+        return createToken(userDto);
+    }
+
     private UserDto getUserDtoFromDecodedJWT(DecodedJWT decoded) {
         User userByEmail = userRepository.findByEmailIgnoreCase(decoded.getIssuer())
                 .orElseThrow(() -> new AppException("User is not found in database.", HttpStatus.NOT_FOUND));
@@ -67,7 +79,6 @@ public class UserAuthenticationProvider {
         BeanUtils.copyProperties(userByEmail, userDto);
         userDto.setLastLogin(userByEmail.getLastLogin().toString());
         userDto.setCreatedAt(userByEmail.getCreatedAt().toString());
-        userDto.setUpdatedAt(userByEmail.getUpdatedAt().toString());
         userDto.setRole(userByEmail.getRole().getName());
         userDto.setAuthorities(userByEmail.getRole().getAuthorities());
 
