@@ -1,9 +1,6 @@
 package com.princz_mia.viaubv18_coffee_shop.order.status;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -14,8 +11,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderStatus {
+
+    @SequenceGenerator(
+            name = "order_status_sequence",
+            sequenceName = "order_status_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "order_status_sequence"
+    )
     private Long id;
 
     private String name;
