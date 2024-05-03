@@ -1,8 +1,6 @@
 package com.princz_mia.viaubv18_coffee_shop.config.security;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
