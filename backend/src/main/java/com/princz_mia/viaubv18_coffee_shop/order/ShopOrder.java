@@ -7,7 +7,7 @@ import com.princz_mia.viaubv18_coffee_shop.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -46,7 +46,7 @@ public class ShopOrder {
     @JoinColumn(name = "order_status_id", referencedColumnName = "id")
     private OrderStatus orderStatus;
 
-    private Timestamp orderDate;
+    private LocalDateTime orderDate;
     private double orderTotal;
 
     private String firstName;
