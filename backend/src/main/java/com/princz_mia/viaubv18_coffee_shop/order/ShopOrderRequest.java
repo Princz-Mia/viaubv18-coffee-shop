@@ -2,6 +2,7 @@ package com.princz_mia.viaubv18_coffee_shop.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,15 +12,15 @@ import java.time.LocalDateTime;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShopOrderRequest {
-    @NotEmpty(message = "User Id cannot be null or empty")
+    @NotNull(message = "User Id cannot be null")
     private Long userId;
-    @NotEmpty(message = "Address Id cannot be null or empty")
+    @NotNull(message = "Address Id cannot be null")
     private Long addressId;
-    @NotEmpty(message = "Shipping Method Id cannot be null or empty")
+    @NotNull(message = "Shipping Method Id cannot be null")
     private Long shippingMethodId;
-    @NotEmpty(message = "Date cannot be null or empty")
+    @NotNull(message = "Date cannot be null")
     private LocalDateTime orderDate;
-    @NotEmpty(message = "Total price cannot be null or empty")
+    @NotNull(message = "Total price cannot be null")
     private Double orderTotal;
     @NotEmpty(message = "Firstname cannot be null or empty")
     private String firstName;
