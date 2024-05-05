@@ -52,4 +52,6 @@ public class ShopOrder {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+
+    private String paymentId;
 }
