@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Map;
 
 import static com.princz_mia.viaubv18_coffee_shop.shared.RequestUtils.getResponse;
 
@@ -41,5 +42,40 @@ public class UserController {
 
     private URI getUri(String path) {
         return URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/user" + path).toUriString());
+    }
+
+    @PostMapping("/change/name")
+    public ResponseEntity<UserDto> changeUserNames(@RequestBody Map<String, Object> requestBody) {
+        Long userId = Long.valueOf(requestBody.get("userId").toString());
+        String firstName = (String) requestBody.get("firstName");
+        String lastName = (String) requestBody.get("lastName");
+
+        UserDto userDto = userService.changeUserNames(userId, firstName, lastName);
+        return ResponseEntity.ok(userDto);
+    }
+
+
+    @PostMapping("/change/email")
+    public ResponseEntity<UserDto> changeUserEmail(@RequestBody Map<String, Object> requestBody) {
+        Long userId = Long.valueOf(requestBody.get("userId").toString());
+        String email = (String) requestBody.get("email");
+
+        UserDto userDto = userService.changeUserEmail(userId, email);
+        return ResponseEntity.ok(userDto);
+    }
+
+    @PostMapping("/change/phoneNumber")
+    public ResponseEntity<UserDto> changeUserPhoneNumber(@RequestBody Map<String, Object> requestBody) {
+        Long userId = Long.valueOf(requestBody.get("userId").toString());
+        String phoneNumber = (String) requestBody.get("phoneNumber");
+
+        UserDto userDto = userService.changeUserPhoneNumber(userId, phoneNumber);
+        return ResponseEntity.ok(userDto);
+    }
+
+    @PostMapping("/change/password")
+    public ResponseEntity<UserDto> changeUserPassword(Long userId, @RequestBody @Valid PasswordChangeRequest passwordChangeRequest) {
+        UserDto userDto = userService.changeUserPassword(userId, passwordChangeRequest);
+        return ResponseEntity.ok(userDto);
     }
 }
