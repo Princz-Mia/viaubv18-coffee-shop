@@ -101,19 +101,19 @@ public class UserService {
 
     private User getUserByEmail(String email) {
         var userByEmail =  userRepository.findByEmailIgnoreCase(email);
-        return userByEmail.orElseThrow(() -> new AppException("User was not found with matching email address in database.", HttpStatus.NOT_FOUND));
+        return userByEmail.orElseThrow(() -> new AppException("User is not found with matching Email", HttpStatus.NOT_FOUND));
     }
 
     private UserDto getUserDtoById(Long id) {
-        var userById =  userRepository.findById(id).orElseThrow(() -> new AppException("User is not found in database.", HttpStatus.NOT_FOUND));
-        return fromUserToUserDto(userById, userById.getRole(), getCredentialById(userById.getId()));
+        var userById =  userRepository.findById(id).orElseThrow(() -> new AppException("User is not found with matching Id", HttpStatus.NOT_FOUND));
+        return fromUserToUserDto(userById, userById.getRole());
     }
     private UserDto getUserDtoByEmail(String email) {
-        var userByEmail =  userRepository.findByEmailIgnoreCase(email).orElseThrow(() -> new AppException("User is not found in database.", HttpStatus.NOT_FOUND));
-        return fromUserToUserDto(userByEmail, userByEmail.getRole(), getCredentialById(userByEmail.getId()));
+        var userByEmail =  userRepository.findByEmailIgnoreCase(email).orElseThrow(() -> new AppException("User is not found with matching Email", HttpStatus.NOT_FOUND));
+        return fromUserToUserDto(userByEmail, userByEmail.getRole());
     }
 
-    public UserDto fromUserToUserDto(User user, UserRole role, Credential credential) {
+    public UserDto fromUserToUserDto(User user, UserRole role) {
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(user, userDto);
         userDto.setLastLogin(user.getLastLogin().toString());
@@ -161,9 +161,9 @@ public class UserService {
 
     public UserDto loginUser(LoginRequest loginRequest) {
         User userByEmail = userRepository.findByEmailIgnoreCase(loginRequest.getEmail())
-                .orElseThrow(() -> new AppException("User is not found in database.", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AppException("User is not found with matching Email.", HttpStatus.NOT_FOUND));
 
-        var userDto = fromUserToUserDto(userByEmail, userByEmail.getRole(), getCredentialById(userByEmail.getId()));
+        var userDto = fromUserToUserDto(userByEmail, userByEmail.getRole());
         var userCredential = getCredentialById(userByEmail.getId()); // TODO: Refactor to credentialService do this task
         var userPrincipal = new UserPrincipal(userDto, userCredential);
 
@@ -181,5 +181,64 @@ public class UserService {
             updateLoginAttempt(userByEmail.getEmail(), LoginType.LOGIN_ATTEMPT);
             throw new AppException("\nInvalid password.\nLogin attempts: " + userByEmail.getLoginAttempts(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public UserDto changeUserNames(Long userId, String firstName, String lastName) {
+        var userById = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
+
+        if (userById.getFirstName().equals(firstName) && userById.getLastName().equals(lastName))
+            throw new AppException("User's name already matching with wanted names", HttpStatus.NOT_MODIFIED);
+
+        userById.setFirstName(firstName);
+        userById.setLastName(lastName);
+
+        User updatedUser = userRepository.save(userById);
+        return fromUserToUserDto(updatedUser, updatedUser.getRole());
+    }
+
+    public UserDto changeUserEmail(Long userId, String email) {
+        var userById = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
+
+        if (userById.getEmail().equals(email))
+            throw new AppException("User is already using this email", HttpStatus.NOT_MODIFIED);
+
+        userById.setEmail(email);
+
+        User updatedUser = userRepository.save(userById);
+        return fromUserToUserDto(updatedUser, updatedUser.getRole());
+    }
+
+    public UserDto changeUserPhoneNumber(Long userId, String phoneNumber) {
+        var userById = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
+
+        if (userById.getPhoneNumber().equals(phoneNumber))
+            throw new AppException("User is already using this Phone number", HttpStatus.NOT_MODIFIED);
+
+        userById.setPhoneNumber(phoneNumber);
+
+        User updatedUser = userRepository.save(userById);
+        return fromUserToUserDto(updatedUser, updatedUser.getRole());
+    }
+
+    public UserDto changeUserPassword(Long userId, PasswordChangeRequest passwordChangeRequest) {
+        var userById = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
+
+        var userCredential = getCredentialById(userById.getId());
+
+        if (!passwordChangeRequest.getNewPassword().equals(passwordChangeRequest.getConfirmNewPassword()))
+            throw new AppException("New password is not matching with password confirmation", HttpStatus.BAD_REQUEST);
+
+        if (passwordConfiguration.bCryptPasswordEncoder().matches(passwordChangeRequest.getNewPassword(), userCredential.getPassword()))
+            throw new AppException("User is already using this password", HttpStatus.NOT_MODIFIED);
+
+        String encodedNewPassword = passwordConfiguration.bCryptPasswordEncoder().encode(passwordChangeRequest.getNewPassword());
+        userCredential.setPassword(encodedNewPassword);
+        credentialRepository.save(userCredential);
+
+        return fromUserToUserDto(userById, userById.getRole());
     }
 }
