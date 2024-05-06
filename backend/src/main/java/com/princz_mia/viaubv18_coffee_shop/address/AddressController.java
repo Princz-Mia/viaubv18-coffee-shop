@@ -19,4 +19,13 @@ public class AddressController {
         Address address = addressService.createAddress(addressRequest);
         return ResponseEntity.ok(address);
     }
+
+    @PostMapping("/setToUser/{userId}")
+    public ResponseEntity<Address> setAddressToUser(
+            @PathVariable(value = "userId") Long userId,
+            @RequestBody @Valid AddressRequest addressRequest
+    ) {
+        Address address = addressService.setAddressToUser(userId, addressRequest);
+        return ResponseEntity.ok(address);
+    }
 }
