@@ -5,6 +5,8 @@ import com.princz_mia.viaubv18_coffee_shop.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -36,4 +38,5 @@ public class UserReview {
 
     private Double ratingValue;
     private String comment;
+    private LocalDateTime createdAt;
 }

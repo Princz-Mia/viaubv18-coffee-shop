@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,7 @@ public class UserReviewService {
                 .orderedProduct(productById)
                 .ratingValue(userReviewRequest.getRatingValue())
                 .comment(userReviewRequest.getComment())
+                .createdAt(LocalDateTime.now())
                 .build();
 
         return userReviewRepository.save(userReview);
