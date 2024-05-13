@@ -1,5 +1,6 @@
 package com.princz_mia.viaubv18_coffee_shop.product;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,23 @@ public class ProductController {
     public ResponseEntity<Product> getProductByName(@PathVariable(value = "name") String name) {
         Product product = productService.getProductByName(name);
         return ResponseEntity.ok(product);
+    }
+
+    @PostMapping(path = "/createNewProduct")
+    public ResponseEntity<Product> createNewProduct(@RequestBody @Valid ProductRequest productRequest) {
+        Product product = productService.createNewProduct(productRequest);
+        return ResponseEntity.ok(product);
+    }
+
+    @PostMapping(path = "/updateProduct")
+    public ResponseEntity<Product> updateProduct(@RequestBody @Valid ProductRequest productRequest) {
+        Product product = productService.updateProduct(productRequest);
+        return ResponseEntity.ok(product);
+    }
+
+    @PostMapping(path = "/deleteById/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable(value = "id") Long id) {
+        productService.deleteById(id);
+        return ResponseEntity.ok(true);
     }
 }
