@@ -1,6 +1,7 @@
 package com.princz_mia.viaubv18_coffee_shop.product;
 
 import com.princz_mia.viaubv18_coffee_shop.exception.AppException;
+import com.princz_mia.viaubv18_coffee_shop.product.category.ProductCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
     public ProductPageResponse getPageOfProducts(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
@@ -66,5 +68,51 @@ public class ProductService {
     public Product getProductByName(String name) {
         var product = productRepository.findByNameIgnoreCase(name);
         return product.orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
+    }
+
+    public Product createNewProduct(ProductRequest productRequest) {
+        if (productRequest.getId() != null)
+            throw new AppException("New Product should not have an Id", HttpStatus.BAD_REQUEST);
+
+        var optionalProduct = productRepository.findByNameIgnoreCase(productRequest.getName());
+        if (optionalProduct.isPresent())
+            throw new AppException("Product is already exists with matching name", HttpStatus.BAD_REQUEST);
+
+        var category = productCategoryRepository.findById(productRequest.getCategoryId())
+                .orElseThrow(() -> new AppException("Product Category is not found", HttpStatus.BAD_REQUEST));
+
+        Product product = Product.builder()
+                .name(productRequest.getName())
+                .qtyInStock(productRequest.getQtyInStock())
+                .price(productRequest.getPrice())
+                .description(productRequest.getDescription())
+                .category(category)
+                .productImage(productRequest.getProductImage())
+                .build();
+
+        return productRepository.save(product);
+    }
+
+    public Product updateProduct(ProductRequest productRequest) {
+        if (productRequest.getId() == null)
+            throw new AppException("Product Id field is missing value", HttpStatus.BAD_REQUEST);
+
+        var product = productRepository.findById(productRequest.getId())
+                .orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
+
+        product.setName(productRequest.getName());
+        product.setQtyInStock(productRequest.getQtyInStock());
+        product.setPrice(productRequest.getPrice());
+        product.setDescription(productRequest.getDescription());
+        var category = productCategoryRepository.findById(productRequest.getCategoryId())
+                .orElseThrow(() -> new AppException("Product Category is not found", HttpStatus.BAD_REQUEST));
+        product.setCategory(category);
+        product.setProductImage(productRequest.getProductImage());
+
+        return productRepository.save(product);
+    }
+
+    public void deleteById(Long id) {
+        // TODO: Implement business logic to handle deletion of Product entity while keeping reference integrity in database
     }
 }
