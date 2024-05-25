@@ -17,16 +17,8 @@ import org.hibernate.annotations.OnDeleteAction;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Credential {
 
-    @SequenceGenerator(
-            name = "credential_sequence",
-            sequenceName = "credential_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "credential_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
