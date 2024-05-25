@@ -14,16 +14,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ShoppingCartItem {
 
-    @SequenceGenerator(
-            name = "shopping_cart_item_sequence",
-            sequenceName = "shopping_cart_item_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "shopping_cart_item_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)

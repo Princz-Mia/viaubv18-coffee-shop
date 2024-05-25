@@ -18,16 +18,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ShopOrder {
 
-    @SequenceGenerator(
-            name = "shop_order_sequence",
-            sequenceName = "shop_order_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "shop_order_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)

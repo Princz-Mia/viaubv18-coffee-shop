@@ -12,16 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 public class UserRole {
 
-    @SequenceGenerator(
-            name = "user_role_sequence",
-            sequenceName = "user_role_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_role_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;

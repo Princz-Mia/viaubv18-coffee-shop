@@ -13,16 +13,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ShoppingCart {
 
-    @SequenceGenerator(
-            name = "shopping_cart_sequence",
-            sequenceName = "shopping_cart_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "shopping_cart_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER)

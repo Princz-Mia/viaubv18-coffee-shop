@@ -12,16 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ProductCategory {
 
-    @SequenceGenerator(
-            name = "product_category_sequence",
-            sequenceName = "product_category_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "product_category_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
