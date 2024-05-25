@@ -19,7 +19,10 @@ public class AddressService {
 
     public Address createAddress(AddressRequest addressRequest) {
         var country = countryRepository.findByNameIgnoreCase(addressRequest.getCountryName())
-                .orElseThrow(() -> new AppException("Country is not found with matching name", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AppException("Country is not found with matching name", HttpStatus.BAD_REQUEST));
+
+        if (addressRequest.getAddressLine1().isEmpty() && addressRequest.getAddressLine2().isEmpty())
+            throw new AppException("Missing address line field", HttpStatus.BAD_REQUEST);
 
         var optionalAddress = addressRepository.findByPropertiesIgnoreCase(
                 country.getId(),
