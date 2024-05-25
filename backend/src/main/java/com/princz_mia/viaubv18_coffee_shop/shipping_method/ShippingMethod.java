@@ -12,19 +12,14 @@ import lombok.*;
 @AllArgsConstructor
 public class ShippingMethod {
 
-    @SequenceGenerator(
-            name = "shipping_method_sequence",
-            sequenceName = "shipping_method_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "shipping_method_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     private Double price;
 }
