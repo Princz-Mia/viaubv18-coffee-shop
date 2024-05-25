@@ -112,7 +112,15 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteById(Long id) {
+    public void removeById(Long id) {
         // TODO: Implement business logic to handle deletion of Product entity while keeping reference integrity in database
+        if (id == null)
+            throw new AppException("Invalid Product Id", HttpStatus.BAD_REQUEST);
+
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
+
+        product.setIsRemoved(true);
+        productRepository.save(product);
     }
 }
