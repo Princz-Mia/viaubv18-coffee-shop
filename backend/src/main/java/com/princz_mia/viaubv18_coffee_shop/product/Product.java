@@ -22,8 +22,16 @@ public class Product {
     private ProductCategory category;
 
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(columnDefinition = "TEXT")
     private String productImage;
+
     private Integer qtyInStock;
+
     private Double price;
+
+    private Boolean isRemoved;
 }
