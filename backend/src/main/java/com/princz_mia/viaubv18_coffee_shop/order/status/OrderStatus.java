@@ -12,18 +12,12 @@ import lombok.*;
 @AllArgsConstructor
 public class OrderStatus {
 
-    @SequenceGenerator(
-            name = "order_status_sequence",
-            sequenceName = "order_status_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "order_status_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
 }
