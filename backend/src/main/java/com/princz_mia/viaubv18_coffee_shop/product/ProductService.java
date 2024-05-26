@@ -36,7 +36,7 @@ public class ProductService {
     }
 
     public ProductPageResponse getProductBySearchTerm(String searchTerm, int pageNumber, int pageSize) {
-        if (searchTerm == null || searchTerm.isEmpty() || searchTerm.isBlank()) {
+        if (searchTerm.isEmpty()) {
             return getPageOfProducts(pageNumber, pageSize);
         }
 
@@ -61,13 +61,13 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
-        var product = productRepository.findById(id);
-        return product.orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
+        return productRepository.findById(id)
+                .orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
     }
 
     public Product getProductByName(String name) {
-        var product = productRepository.findByNameIgnoreCase(name);
-        return product.orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
+        return productRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new AppException("Product is not found", HttpStatus.NOT_FOUND));
     }
 
     public Product createNewProduct(ProductRequest productRequest) {
