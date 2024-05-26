@@ -58,8 +58,8 @@ public class ProductController {
     }
 
     @PostMapping(path = "/deleteById/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable(value = "id") Long id) {
-        productService.deleteById(id);
+    public ResponseEntity<?> removeById(@PathVariable(value = "id") Long id) {
+        productService.removeById(id);
         return ResponseEntity.ok(true);
     }
 }
