@@ -1,7 +1,7 @@
-package com.princz_mia.viaubv18_coffee_shop.order;
+package com.princz_mia.viaubv18_coffee_shop.shop_order;
 
 import com.princz_mia.viaubv18_coffee_shop.address.Address;
-import com.princz_mia.viaubv18_coffee_shop.order.status.OrderStatus;
+import com.princz_mia.viaubv18_coffee_shop.shop_order.status.ShopOrderStatus;
 import com.princz_mia.viaubv18_coffee_shop.shipping_method.ShippingMethod;
 import com.princz_mia.viaubv18_coffee_shop.user.User;
 import jakarta.persistence.*;
@@ -35,8 +35,8 @@ public class ShopOrder {
     private ShippingMethod shippingMethod;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_status_id", referencedColumnName = "id")
-    private OrderStatus orderStatus;
+    @JoinColumn(name = "shop_order_status_id", referencedColumnName = "id")
+    private ShopOrderStatus shopOrderStatus;
 
     private LocalDateTime orderDate;
     private double orderTotal;
