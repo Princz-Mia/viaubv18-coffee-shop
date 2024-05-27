@@ -1,7 +1,7 @@
-package com.princz_mia.viaubv18_coffee_shop.order.item;
+package com.princz_mia.viaubv18_coffee_shop.shop_order.item;
 
 import com.princz_mia.viaubv18_coffee_shop.product.Product;
-import com.princz_mia.viaubv18_coffee_shop.order.ShopOrder;
+import com.princz_mia.viaubv18_coffee_shop.shop_order.ShopOrder;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItem {
+public class ShopOrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,8 @@ public class OrderItem {
     private Product product;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private ShopOrder order;
+    @JoinColumn(name = "shop_order_id", referencedColumnName = "id")
+    private ShopOrder shopOrder;
 
     private Integer qty;
     private Double price;
