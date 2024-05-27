@@ -21,6 +21,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT p FROM Product p WHERE LOWER(p.name) LIKE %:searchTerm%")
     List<Product> findByContainingSearchTermInName(@Param("searchTerm") String searchTerm);
 
-    @Query("SELECT DISTINCT oi.product FROM OrderItem oi JOIN oi.order o WHERE o.customer = :user")
+    @Query("SELECT DISTINCT oi.product FROM ShopOrderItem oi JOIN oi.shopOrder o WHERE o.customer = :user")
     List<Product> findProductsOrderedByUser(@Param("user") User user);
 }
