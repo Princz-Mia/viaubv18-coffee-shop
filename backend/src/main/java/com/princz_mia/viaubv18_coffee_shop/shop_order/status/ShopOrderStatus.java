@@ -1,4 +1,4 @@
-package com.princz_mia.viaubv18_coffee_shop.order.status;
+package com.princz_mia.viaubv18_coffee_shop.shop_order.status;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderStatus {
+public class ShopOrderStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
