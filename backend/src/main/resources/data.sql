@@ -233,14 +233,14 @@ INSERT INTO country (name, iso) VALUES ('Zambia', 'ZM');
 INSERT INTO country (name, iso) VALUES ('Zimbabwe', 'ZW');
 
 
-INSERT INTO order_status (name, description) VALUES  ('PENDING', 'Your order is pending processing. Please wait for further updates.');
-INSERT INTO order_status (name, description) VALUES  ('AWAITING_PAYMENT', 'Your order is awaiting payment. Please complete the payment process to proceed.');
-INSERT INTO order_status (name, description) VALUES  ('PAYMENT_FULFILLED', 'Payment for your order has been successfully processed.');
-INSERT INTO order_status (name, description) VALUES  ('AWAITING_SHIPMENT', 'Your order is awaiting shipment. It will be shipped soon.');
-INSERT INTO order_status (name, description) VALUES  ('PARTIALLY_SHIPPED', 'Your order has been partially shipped. Some items have been shipped, while others are pending.');
-INSERT INTO order_status (name, description) VALUES  ('SHIPPED', 'Your order has been shipped. You should receive it shortly.');
-INSERT INTO order_status (name, description) VALUES  ('CANCELLED', 'Your order has been cancelled. If you have any questions, please contact customer support.');
-INSERT INTO order_status (name, description) VALUES  ('REFUNDED', 'Your order has been refunded. You will receive a refund for the cancelled items.');
+INSERT INTO shop_order_status (name, description) VALUES  ('PENDING', 'Your order is pending processing. Please wait for further updates.');
+INSERT INTO shop_order_status (name, description) VALUES  ('AWAITING_PAYMENT', 'Your order is awaiting payment. Please complete the payment process to proceed.');
+INSERT INTO shop_order_status (name, description) VALUES  ('PAYMENT_FULFILLED', 'Payment for your order has been successfully processed.');
+INSERT INTO shop_order_status (name, description) VALUES  ('AWAITING_SHIPMENT', 'Your order is awaiting shipment. It will be shipped soon.');
+INSERT INTO shop_order_status (name, description) VALUES  ('PARTIALLY_SHIPPED', 'Your order has been partially shipped. Some items have been shipped, while others are pending.');
+INSERT INTO shop_order_status (name, description) VALUES  ('SHIPPED', 'Your order has been shipped. You should receive it shortly.');
+INSERT INTO shop_order_status (name, description) VALUES  ('CANCELLED', 'Your order has been cancelled. If you have any questions, please contact customer support.');
+INSERT INTO shop_order_status (name, description) VALUES  ('REFUNDED', 'Your order has been refunded. You will receive a refund for the cancelled items.');
 
 INSERT INTO product_category (name) VALUES ('Weak');
 INSERT INTO product_category (name) VALUES ('Mid');
