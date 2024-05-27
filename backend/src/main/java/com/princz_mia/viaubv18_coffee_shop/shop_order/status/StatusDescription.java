@@ -1,4 +1,4 @@
-package com.princz_mia.viaubv18_coffee_shop.order.status;
+package com.princz_mia.viaubv18_coffee_shop.shop_order.status;
 
 public class StatusDescription {
     public static final String PENDING_DESCRIPTION = "Your order is pending processing. Please wait for further updates.";
