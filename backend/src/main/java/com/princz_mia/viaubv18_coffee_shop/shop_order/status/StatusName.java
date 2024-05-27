@@ -1,6 +1,6 @@
-package com.princz_mia.viaubv18_coffee_shop.order.status;
+package com.princz_mia.viaubv18_coffee_shop.shop_order.status;
 
-import static com.princz_mia.viaubv18_coffee_shop.order.status.StatusDescription.*;
+import static com.princz_mia.viaubv18_coffee_shop.shop_order.status.StatusDescription.*;
 
 public enum StatusName {
     PENDING(PENDING_DESCRIPTION),
