@@ -1,4 +1,4 @@
-package com.princz_mia.viaubv18_coffee_shop.order;
+package com.princz_mia.viaubv18_coffee_shop.shop_order;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotEmpty;
