@@ -24,19 +24,19 @@ public class ShopOrderController {
     }
 
     @GetMapping(path = "/getShopOrdersByUserId/{userId}")
-    public ResponseEntity<List<ShopOrder>> getShopOrdersByUserId(@PathVariable(value = "userId") @NotNull Long userId) {
+    public ResponseEntity<List<ShopOrder>> getShopOrdersByUserId(@PathVariable(value = "userId") @NotNull(message = "User Id must not be null") Long userId) {
         List<ShopOrder> shopOrders = shopOrderService.getShopOrdersByUserId(userId);
         return ResponseEntity.ok(shopOrders);
     }
 
     @GetMapping(path = "/pending/{userId}")
-    public ResponseEntity<ShopOrder> getPendingShopOrderByUserId(@PathVariable(value = "userId") @NotNull Long userId) {
+    public ResponseEntity<ShopOrder> getPendingShopOrderByUserId(@PathVariable(value = "userId") @NotNull(message = "User Id must not be null") Long userId) {
         ShopOrder shopOrder = shopOrderService.getPendingShopOrderByUserId(userId);
         return ResponseEntity.ok(shopOrder);
     }
 
     @GetMapping(path = "/hasPendingShopOrder/{userId}")
-    public ResponseEntity<Boolean> hasUserPendingShopOrder(@PathVariable(value = "userId") @NotNull Long userId) {
+    public ResponseEntity<Boolean> hasUserPendingShopOrder(@PathVariable(value = "userId") @NotNull(message = "User Id must not be null") Long userId) {
         Boolean hasPendingOrder = shopOrderService.hasUserPendingShopOrder(userId);
         return ResponseEntity.ok(hasPendingOrder);
     }
@@ -48,7 +48,7 @@ public class ShopOrderController {
     }
 
     @GetMapping(path = "/getByShopOrderId/{shopOrderId}")
-    public ResponseEntity<ShopOrder> getShopOrderById(@PathVariable(value = "shopOrderId") @NotNull Long shopOrderId) {
+    public ResponseEntity<ShopOrder> getShopOrderById(@PathVariable(value = "shopOrderId") @NotNull(message = "Shopping Order Id must not be null") Long shopOrderId) {
         ShopOrder shopOrder = shopOrderService.getShopOrderById(shopOrderId);
         return ResponseEntity.ok(shopOrder);
     }
@@ -69,7 +69,7 @@ public class ShopOrderController {
     }
 
     @PostMapping(path = "/deleteById/{shopOrderId}")
-    public ResponseEntity<Boolean> deleteShopOrderById(@PathVariable(value = "shopOrderId") @NotNull Long shopOrderId) {
+    public ResponseEntity<Boolean> deleteShopOrderById(@PathVariable(value = "shopOrderId") @NotNull(message = "Shopping Order Id must not be null") Long shopOrderId) {
         shopOrderService.deleteShopOrderById(shopOrderId);
         return ResponseEntity.ok(true);
     }

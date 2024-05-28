@@ -27,8 +27,6 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
-    // TODO: Implement EmailBuilder function class to get rid of code duplication
-
     @Async
     public void sendNewAccountEmail(String name, String toEmail, String key) {
         try {
@@ -39,7 +37,6 @@ public class EmailService {
             message.setText(getEmailMessage(name, host, key));
             sender.send(message);
         } catch (Exception e) {
-            // Should not throw Exception. Inform the User about the error and tell them to later try it again.
             throw new AppException("Unable to send email, cause: " + e.getMessage(), HttpStatus.BAD_GATEWAY);
         }
     }
@@ -54,8 +51,7 @@ public class EmailService {
             message.setText(getResetPasswordMessage(name, host, token));
             sender.send(message);
         } catch (Exception e) {
-            // Should not throw Exception. Inform the User about the error and tell them to later try it again.
-            throw new AppException("Unable to send email", HttpStatus.BAD_GATEWAY);
+            throw new AppException("Unable to send email, cause: " + e.getMessage(), HttpStatus.BAD_GATEWAY);
         }
     }
 }

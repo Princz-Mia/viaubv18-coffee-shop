@@ -1,13 +1,15 @@
 package com.princz_mia.viaubv18_coffee_shop.product;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping(path = "/api/v1/products")
 @RequiredArgsConstructor
 @Slf4j
 public class ProductController {
@@ -25,7 +27,7 @@ public class ProductController {
 
     @GetMapping("/search/{searchTerm}")
     public ResponseEntity<ProductPageResponse> getProductByName(
-            @PathVariable(value = "searchTerm") String searchTerm,
+            @PathVariable(value = "searchTerm") @NotEmpty(message = "Search Term must not be null or empty") String searchTerm,
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "8", required = false) int pageSize
     ) {
@@ -34,13 +36,13 @@ public class ProductController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable(value = "id") @NotNull(message = "Product Id must not be null") Long id) {
         Product product = productService.getProductById(id);
         return ResponseEntity.ok(product);
     }
 
     @GetMapping("/getByName/{name}")
-    public ResponseEntity<Product> getProductByName(@PathVariable(value = "name") String name) {
+    public ResponseEntity<Product> getProductByName(@PathVariable(value = "name") @NotEmpty(message = "Product name must not be null or empty") String name) {
         Product product = productService.getProductByName(name);
         return ResponseEntity.ok(product);
     }
@@ -58,7 +60,7 @@ public class ProductController {
     }
 
     @PostMapping(path = "/deleteById/{id}")
-    public ResponseEntity<?> removeById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> removeById(@PathVariable(value = "id") @NotNull(message = "Product Id must not be null") Long id) {
         productService.removeById(id);
         return ResponseEntity.ok(true);
     }

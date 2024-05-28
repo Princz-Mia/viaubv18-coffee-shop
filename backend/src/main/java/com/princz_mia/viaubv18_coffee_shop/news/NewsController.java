@@ -1,6 +1,8 @@
 package com.princz_mia.viaubv18_coffee_shop.news;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,7 @@ public class NewsController {
 
     @GetMapping("/search/{searchTerm}")
     public ResponseEntity<NewsPageResponse> getPageOfNewsBySearchTerm(
-            @PathVariable(value = "searchTerm") String searchTerm,
+            @PathVariable(value = "searchTerm") @NotEmpty(message = "Search Term must not be null or empty") String searchTerm,
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "8", required = false) int pageSize
     ) {
@@ -42,14 +44,14 @@ public class NewsController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<News> getNewsById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<News> getNewsById(@PathVariable(value = "id") @NotNull(message = "News Id must not be null") Long id) {
         News news = newsService.getNewsById(id);
         return ResponseEntity.ok(news);
     }
 
-    @GetMapping("/getByName/{name}")
-    public ResponseEntity<News> getNewsByTitle(@PathVariable(value = "name") String name) {
-        News news = newsService.getNewsByTitle(name);
+    @GetMapping("/getByName/{title}")
+    public ResponseEntity<News> getNewsByTitle(@PathVariable(value = "title") @NotEmpty(message = "Title must not be null or empty") String title) {
+        News news = newsService.getNewsByTitle(title);
         return ResponseEntity.ok(news);
     }
 
@@ -66,7 +68,7 @@ public class NewsController {
     }
 
     @PostMapping(path = "/deleteById/{id}")
-    public ResponseEntity<?> removeById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> removeById(@PathVariable(value = "id") @NotNull(message = "News Id must not be null") Long id) {
         newsService.removeById(id);
         return ResponseEntity.ok(true);
     }

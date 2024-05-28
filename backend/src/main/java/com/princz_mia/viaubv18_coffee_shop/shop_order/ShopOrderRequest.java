@@ -19,7 +19,7 @@ public class ShopOrderRequest {
     private Long addressId;
     @NotNull(message = "Shipping Method Id cannot be null")
     private Long shippingMethodId;
-    private String shopOrderStatusName;
+    private Long shopOrderStatusId;
     @NotNull(message = "Date cannot be null")
     private LocalDateTime orderDate;
     @NotNull(message = "Total price cannot be null")

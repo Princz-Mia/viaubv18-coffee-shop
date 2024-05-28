@@ -1,6 +1,7 @@
 package com.princz_mia.viaubv18_coffee_shop.user_review;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UserReviewController {
     private final UserReviewService userReviewService;
 
     @GetMapping()
-    public ResponseEntity<List<UserReview>> getReviewsByProductId(@RequestParam(value = "productId", required = true) Long productId) {
+    public ResponseEntity<List<UserReview>> getReviewsByProductId(@RequestParam(value = "productId", required = true) @NotNull(message = "Product Id must not be null") Long productId) {
         List<UserReview> userReviews = userReviewService.getReviewsByProductId(productId);
         return ResponseEntity.ok(userReviews);
     }

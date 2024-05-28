@@ -1,6 +1,7 @@
 package com.princz_mia.viaubv18_coffee_shop.shop_order.item;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ShopOrderItemController {
     }
 
     @GetMapping(path = "/getByShopOrderId/{shopOrderId}")
-    public ResponseEntity<List<ShopOrderItem>> getShopOrderItemsByShopOrderId(@PathVariable Long shopOrderId) {
+    public ResponseEntity<List<ShopOrderItem>> getShopOrderItemsByShopOrderId(@PathVariable(value = "shopOrderId") @NotNull(message = "Shop Order Id must not be null") Long shopOrderId) {
         List<ShopOrderItem> shopOrderItems = shopOrderItemService.getShopOrderItemsByShopOrderId(shopOrderId);
         return ResponseEntity.ok(shopOrderItems);
     }

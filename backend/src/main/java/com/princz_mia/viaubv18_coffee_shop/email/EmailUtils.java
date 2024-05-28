@@ -2,7 +2,6 @@ package com.princz_mia.viaubv18_coffee_shop.email;
 
 public class EmailUtils {
 
-    // TODO: Refactor with StringBuilder
 
     public static String getEmailMessage(String name, String host, String key) {
         return "Hello " + name + ",\n\nYour new account has been created. Please click on the link below to verify your account.\n\n" +
@@ -14,11 +13,11 @@ public class EmailUtils {
                 getResetPasswordUrl(host, key) + "\n\nThe Support Team";
     }
 
-    public static String getVerificationUrl(String host, String key) {
+    private static String getVerificationUrl(String host, String key) {
         return host + "/verify/account?key=" + key;
     }
 
-    public static String getResetPasswordUrl(String host, String key) {
+    private static String getResetPasswordUrl(String host, String key) {
         return host + "/verify/password?key=" + key;
     }
 }

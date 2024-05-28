@@ -128,13 +128,16 @@ public class ShopOrderService {
     }
 
     public ShopOrder updateShopOrderStatus(ShopOrderRequest shopOrderRequest) {
+        if (shopOrderRequest.getId() == null)
+            throw new AppException("Shop Order Id must not be null", HttpStatus.BAD_REQUEST);
+
         var shopOrder = shopOrderRepository.findById(shopOrderRequest.getId())
                 .orElseThrow(() -> new AppException("Shop Order is not found with matching id", HttpStatus.NOT_FOUND));
 
-        var orderStatus = shopOrderStatusRepository.findByNameIgnoreCase(shopOrderRequest.getShopOrderStatusName())
-                .orElseThrow(() -> new AppException("Shop Order is not found with matching id", HttpStatus.NOT_FOUND));
+        var shopOrderStatus = shopOrderStatusRepository.findById(shopOrderRequest.getShopOrderStatusId())
+                .orElseThrow(() -> new AppException("Shop Order Status is not found with matching id", HttpStatus.BAD_REQUEST));
 
-        shopOrder.setShopOrderStatus(orderStatus);
+        shopOrder.setShopOrderStatus(shopOrderStatus);
         return shopOrderRepository.save(shopOrder);
     }
 

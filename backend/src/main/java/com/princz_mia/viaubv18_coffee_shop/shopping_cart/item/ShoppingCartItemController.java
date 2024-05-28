@@ -1,6 +1,7 @@
 package com.princz_mia.viaubv18_coffee_shop.shopping_cart.item;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class ShoppingCartItemController {
     private final ShoppingCartItemService shoppingCartItemService;
 
     @GetMapping(path = "/getByCartId/{cartId}")
-    public ResponseEntity<List<ShoppingCartItem>> getShoppingCartItemsByCartId(@PathVariable(value = "cartId") Long cartId) {
+    public ResponseEntity<List<ShoppingCartItem>> getShoppingCartItemsByCartId(@PathVariable(value = "cartId") @NotNull(message = "Shopping Cart Id must not be null") Long cartId) {
         List<ShoppingCartItem> shoppingCartItems = shoppingCartItemService.getShoppingCartItemsByCartId(cartId);
         return ResponseEntity.ok(shoppingCartItems);
     }
