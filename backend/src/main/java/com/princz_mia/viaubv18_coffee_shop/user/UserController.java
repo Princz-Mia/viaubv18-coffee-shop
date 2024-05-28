@@ -3,6 +3,9 @@ package com.princz_mia.viaubv18_coffee_shop.user;
 import com.princz_mia.viaubv18_coffee_shop.config.security.LoginRequest;
 import com.princz_mia.viaubv18_coffee_shop.shared.Response;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/verify/account")
-    public ResponseEntity<Response> verifyUserAccount(@RequestParam("key") String key) {
+    public ResponseEntity<Response> verifyUserAccount(@RequestParam("key") @NotEmpty(message = "Key cannot be empty or null") String key) {
         userService.verifyAccountKey(key);
         return ResponseEntity.ok().body(getResponse("Account verified.", HttpStatus.OK));
     }
@@ -38,6 +41,24 @@ public class UserController {
     public ResponseEntity<UserDto> loginUser(@RequestBody @Valid LoginRequest loginRequest) {
         UserDto userDto = userService.loginUser(loginRequest);
         return ResponseEntity.ok(userDto);
+    }
+
+    @GetMapping("/requestPasswordReset")
+    public ResponseEntity<Response> userRequestedPasswordReset(
+            @RequestParam @NotEmpty(message = "Email cannot be empty or null")
+            @Email(message = "Invalid email address") String email
+    ) {
+        userService.userRequestedPasswordReset(email);
+        return ResponseEntity.ok().body(getResponse("Password reset details sent to your email", HttpStatus.OK));
+    }
+
+    @PostMapping("/resetPassword")
+    public ResponseEntity<Response> resetUserPassword(
+            @RequestParam("key") @NotEmpty(message = "Key cannot be empty or null") String key,
+            @RequestBody @Valid PasswordResetRequest passwordResetRequest
+    ) {
+        userService.resetUserPassword(key, passwordResetRequest);
+        return ResponseEntity.ok().body(getResponse("Password is successfully changed.", HttpStatus.OK));
     }
 
     private URI getUri(String path) {
@@ -73,8 +94,11 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @PostMapping("/change/password")
-    public ResponseEntity<UserDto> changeUserPassword(Long userId, @RequestBody @Valid PasswordChangeRequest passwordChangeRequest) {
+    @PostMapping("/change/password/{userId}")
+    public ResponseEntity<UserDto> changeUserPassword(
+            @PathVariable(value = "userId") @NotNull(message = "User Id must not be null") Long userId,
+            @RequestBody @Valid PasswordChangeRequest passwordChangeRequest
+    ) {
         UserDto userDto = userService.changeUserPassword(userId, passwordChangeRequest);
         return ResponseEntity.ok(userDto);
     }
