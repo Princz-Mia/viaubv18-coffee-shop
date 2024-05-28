@@ -26,6 +26,15 @@ public class ShopOrderItemService {
         var shopOrder = shopOrderRepository.findById(shopOrderItemRequest.getShopOrderId())
                 .orElseThrow(() -> new AppException("Shop Order is not found with matching id", HttpStatus.NOT_FOUND));
 
+        Integer currentQuantityOfStock = product.getQtyInStock();
+        Integer quantityOfShopOrderItem = shopOrderItemRequest.getQty();
+
+        if (currentQuantityOfStock < quantityOfShopOrderItem)
+            throw new AppException("Quantity of Shop Order Item must be equal or lower than quantity of stock", HttpStatus.BAD_REQUEST);
+
+        product.setQtyInStock(currentQuantityOfStock - quantityOfShopOrderItem);
+        productRepository.save(product);
+
         ShopOrderItem shopOrderItem = com.princz_mia.viaubv18_coffee_shop.shop_order.item.ShopOrderItem.builder()
                 .product(product)
                 .shopOrder(shopOrder)
