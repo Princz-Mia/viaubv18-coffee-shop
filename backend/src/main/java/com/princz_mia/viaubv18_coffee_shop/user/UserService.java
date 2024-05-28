@@ -94,23 +94,52 @@ public class UserService {
         shoppingCartService.createShoppingCartForVerifiedUser(user);
     }
 
+    public void userRequestedPasswordReset(String email) {
+        var userByEmail = getUserByEmail(email);
+
+        if (!userByEmail.isEnabled())
+            throw new AppException("User profile is not verified yet", HttpStatus.BAD_REQUEST);
+
+        if (!userByEmail.isAccountNonLocked())
+            throw new AppException("User profile is currently locked", HttpStatus.BAD_REQUEST);
+
+        Confirmation confirmation = new Confirmation(userByEmail);
+        confirmationRepository.save(confirmation);
+
+        publisher.publishEvent(new UserEvent(userByEmail, EventType.RESET_PASSWORD, Map.of("key", confirmation.getKey())));
+    }
+
+    public void resetUserPassword(String key, PasswordResetRequest passwordResetRequest) {
+        var confirmation = confirmationRepository.findByKey(key)
+                .orElseThrow(() -> new AppException("Confirmation is not found with matching key", HttpStatus.BAD_REQUEST));
+
+        String newPassword = passwordResetRequest.getNewPassword();
+        String confirmPassword = passwordResetRequest.getConfirmNewPassword();
+        if (!newPassword.equals(confirmPassword))
+            throw new AppException("New password and confirmation password is not matching", HttpStatus.BAD_REQUEST);
+
+        var user = confirmation.getUser();
+        var credential = getCredentialByUserId(user.getId());
+
+        String encodedCurrentPassword = credential.getPassword();
+        if (passwordConfiguration.bCryptPasswordEncoder().matches(newPassword, encodedCurrentPassword))
+            throw new AppException("New password cannot be the same as the current", HttpStatus.BAD_REQUEST);
+
+        String encodedNewPassword = passwordConfiguration.bCryptPasswordEncoder().encode(newPassword);
+        credential.setPassword(encodedNewPassword);
+        credentialRepository.save(credential);
+
+        confirmationRepository.delete(confirmation);
+    }
+
     private Confirmation getUserConfirmation(String key) {
-        var confirmationByKey =  confirmationRepository.findByKey(key);
-        return confirmationByKey.orElseThrow(() -> new AppException("Confirmation key was not found in database.", HttpStatus.NOT_FOUND));
+        return confirmationRepository.findByKey(key)
+                .orElseThrow(() -> new AppException("Confirmation key was not found in database.", HttpStatus.NOT_FOUND));
     }
 
     private User getUserByEmail(String email) {
-        var userByEmail =  userRepository.findByEmailIgnoreCase(email);
-        return userByEmail.orElseThrow(() -> new AppException("User is not found with matching Email", HttpStatus.NOT_FOUND));
-    }
-
-    private UserDto getUserDtoById(Long id) {
-        var userById =  userRepository.findById(id).orElseThrow(() -> new AppException("User is not found with matching Id", HttpStatus.NOT_FOUND));
-        return fromUserToUserDto(userById, userById.getRole());
-    }
-    private UserDto getUserDtoByEmail(String email) {
-        var userByEmail =  userRepository.findByEmailIgnoreCase(email).orElseThrow(() -> new AppException("User is not found with matching Email", HttpStatus.NOT_FOUND));
-        return fromUserToUserDto(userByEmail, userByEmail.getRole());
+        return userRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(() -> new AppException("User is not found with matching Email", HttpStatus.NOT_FOUND));
     }
 
     public UserDto fromUserToUserDto(User user, UserRole role) {
@@ -123,9 +152,9 @@ public class UserService {
         return userDto;
     }
 
-    public Credential getCredentialById(Long id) {
-        var credentialById = credentialRepository.getCredentialByUserId(id);
-        return credentialById.orElseThrow(() -> new AppException("Unable to find user credential.", HttpStatus.NOT_FOUND));
+    public Credential getCredentialByUserId(Long userId) {
+        return credentialRepository.getCredentialByUserId(userId)
+                .orElseThrow(() -> new AppException("Unable to find user credential.", HttpStatus.NOT_FOUND));
     }
 
     private void updateLoginAttempt(String email, LoginType loginType) {
@@ -164,7 +193,7 @@ public class UserService {
                 .orElseThrow(() -> new AppException("User is not found with matching Email.", HttpStatus.NOT_FOUND));
 
         var userDto = fromUserToUserDto(userByEmail, userByEmail.getRole());
-        var userCredential = getCredentialById(userByEmail.getId()); // TODO: Refactor to credentialService do this task
+        var userCredential = getCredentialByUserId(userByEmail.getId()); // TODO: Refactor to credentialService do this task
         var userPrincipal = new UserPrincipal(userDto, userCredential);
 
         try {
@@ -184,6 +213,15 @@ public class UserService {
     }
 
     public UserDto changeUserNames(Long userId, String firstName, String lastName) {
+        if (userId == null)
+            throw new AppException("User Id must not be null", HttpStatus.BAD_REQUEST);
+
+        if (firstName.isEmpty())
+            throw new AppException("Firstname must not be null or empty", HttpStatus.BAD_REQUEST);
+
+        if (lastName.isEmpty())
+            throw new AppException("Lastname must not be null or empty", HttpStatus.BAD_REQUEST);
+
         var userById = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
 
@@ -198,6 +236,12 @@ public class UserService {
     }
 
     public UserDto changeUserEmail(Long userId, String email) {
+        if (userId == null)
+            throw new AppException("User Id must not be null", HttpStatus.BAD_REQUEST);
+
+        if (email.isEmpty())
+            throw new AppException("Email must not be null or empty", HttpStatus.BAD_REQUEST);
+
         var userById = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
 
@@ -211,6 +255,12 @@ public class UserService {
     }
 
     public UserDto changeUserPhoneNumber(Long userId, String phoneNumber) {
+        if (userId == null)
+            throw new AppException("User Id must not be null", HttpStatus.BAD_REQUEST);
+
+        if (phoneNumber.isEmpty())
+            throw new AppException("Phone Number must not be null or empty", HttpStatus.BAD_REQUEST);
+
         var userById = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
 
@@ -224,16 +274,19 @@ public class UserService {
     }
 
     public UserDto changeUserPassword(Long userId, PasswordChangeRequest passwordChangeRequest) {
+        if (userId == null)
+            throw new AppException("User Id must not be null", HttpStatus.BAD_REQUEST);
+
         var userById = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("User is not found with matching Id.", HttpStatus.NOT_FOUND));
 
-        var userCredential = getCredentialById(userById.getId());
+        var userCredential = getCredentialByUserId(userById.getId());
 
         if (!passwordChangeRequest.getNewPassword().equals(passwordChangeRequest.getConfirmNewPassword()))
             throw new AppException("New password is not matching with password confirmation", HttpStatus.BAD_REQUEST);
 
         if (passwordConfiguration.bCryptPasswordEncoder().matches(passwordChangeRequest.getNewPassword(), userCredential.getPassword()))
-            throw new AppException("User is already using this password", HttpStatus.NOT_MODIFIED);
+            throw new AppException("User is already using this password", HttpStatus.BAD_REQUEST);
 
         String encodedNewPassword = passwordConfiguration.bCryptPasswordEncoder().encode(passwordChangeRequest.getNewPassword());
         userCredential.setPassword(encodedNewPassword);
