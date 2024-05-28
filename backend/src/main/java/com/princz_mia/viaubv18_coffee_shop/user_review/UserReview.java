@@ -16,16 +16,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class UserReview {
 
-    @SequenceGenerator(
-            name = "user_review_sequence",
-            sequenceName = "user_review_sequence",
-            allocationSize = 1
-    )
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_review_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
