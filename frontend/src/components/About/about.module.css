@@ -1,0 +1,53 @@
+.about {
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    max-width: 90%;
+}
+
+.heading {
+    text-align: center;
+    color:#fff;
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+    font-size: 4rem;
+}
+
+.heading span {
+    color: #d3ad7f;
+    text-transform: uppercase;
+}
+
+.about .row {
+    display: flex;
+    align-items: center;
+    background: #13131a;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    border: 1px solid #cccccccc;
+    border-radius: 1rem;
+}
+
+.about .row .image {
+    flex: 1 1 45rem;
+    padding-left: 1rem;
+}
+
+.about .row .image img {
+    width: 100%;
+}
+.about .row .content {
+    flex:1 1 45rem;
+    padding: 2rem;
+}
+
+.about .row .content h3 {
+    font-size: 2rem;
+    color:#fff;
+}
+
+.about .row .content p {
+    font-size: 1rem;
+    color: #ccc;
+    padding: 1rem 0;
+    line-height: 1.8;
+}

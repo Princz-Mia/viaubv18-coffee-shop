@@ -1,0 +1,53 @@
+.container {
+    background:         /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6), 
+      rgba(0, 0, 0, 0.6)
+    ), url(../../../public/images/coffee-glass-img.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 8px 8px rgb(0, 0, 0) inset;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .content {
+    width: 40rem;
+    margin: 3rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    filter: blur(75%);
+  }
+
+  .order {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+  }
+  
+  .summary > div {
+    display: flex;
+    margin-top: 1rem;
+    color: #eee;
+  }
+
+  .summary span {
+    margin: 0 0 0 1rem;
+    font-size: 1.2rem;
+  }
+  .summary h3 {
+    margin: 0 1rem 0 0;
+    flex-basis: 5rem;
+  }
+  
+  .buttons_container {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .buttons {
+    margin: 1rem 2rem 1rem 2rem;
+    width: 30rem;
+  }

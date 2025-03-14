@@ -1,0 +1,48 @@
+.container {
+    background: url(../../../public/images/home-page-img.jpeg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.page .content {
+    max-width: 60rem;
+    padding: 2rem;
+}
+
+.page .content h3 {
+    font-size: 5rem;
+    text-transform: uppercase;
+    color:#fff;
+}
+
+.page .content p {
+    font-size: 1.25rem;
+    font-weight: lighter;
+    line-height: 1.8;
+    padding: 1rem 0;
+    color:#eee;
+}
+
+.page .content a {
+    font-size: 2rem;
+    font-weight: lighter;
+    line-height: 1.8;
+    padding: 1rem 0;
+    color:#eee;
+    transition: 0.5s;
+}
+
+.page .content a:hover {
+    cursor: pointer;
+    color:wheat;
+}
+
+.page .btn:hover{
+    letter-spacing: 0.1rem;
+}

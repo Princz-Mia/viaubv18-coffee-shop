@@ -1,0 +1,64 @@
+.container {
+    background:         /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6), 
+      rgba(0, 0, 0, 0.6)
+    ), url(../../../public/images/products-page-img-2.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+    box-shadow: 0 0 8px 8px rgb(0, 0, 0) inset;
+
+    display: flex;
+    justify-content: center;
+    padding-bottom: 6rem;
+  }
+  
+  .list {
+    margin: 1rem;
+    max-width: 70rem;
+
+  }
+  
+  .list_item {
+    display: grid;
+    grid-template-columns:
+      minmax(5rem, 7rem)
+      minmax(10rem, 20rem)
+      minmax(5rem, 10rem)
+      minmax(5rem, 10rem);
+    font-size: 1.2rem;
+    height: 5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #00000050;
+    color: #eee;
+  }
+
+  .list_item a {
+    color: #eee;
+  }
+
+  .list_item a:hover {
+    color: wheat;
+  }
+  
+  .list_item img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100rem;
+    object-fit: cover;
+  }
+  
+  .actions > a {
+    margin-right: 1rem;
+    color: darkblue;
+    cursor: pointer;
+  }
+
+  .pagination_container {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+}

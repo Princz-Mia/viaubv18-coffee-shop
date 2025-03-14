@@ -1,0 +1,96 @@
+.contact {
+    background:         /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6), 
+      rgba(0, 0, 0, 0.6)
+    ), url(../../../public/images/contact-us-img.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 8px 8px rgb(0, 0, 0) inset;
+}
+
+.heading{
+    text-align: center;
+    color:#fff;
+    text-transform: uppercase;
+    padding-top: 4rem;
+    font-size: 4rem;
+}
+
+.heading span{
+    color: #d3ad7f;
+    text-transform: uppercase;
+}
+
+.contact .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1rem;
+}
+
+.contact .row .map{
+    flex:1 1 45rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+.contact .row form{
+    flex:1 1 45rem;
+    padding:5rem 2rem;
+    text-align: center;
+}
+
+.contact .row form h3{
+    text-transform: uppercase;
+    font-size: 3.5rem;
+    color:#fff;
+}
+
+.contact .row form .inputBox{
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.contact .row form .inputBox span{
+    color:#fff;
+    font-size: 2rem;
+    padding-left: 2rem;
+}
+
+.contact .row form .inputBox input,
+.contact .row form .inputBox textarea {
+    padding:2rem;
+    font-size: 1.7rem;
+    color:#eee;
+    text-transform: none;
+    background: #00000050;
+    width: 50%;
+}
+
+.contact .row form .inputBox input::placeholder, 
+.contact .row form .inputBox textarea::placeholder {
+    color:#eeeeeeab;
+}
+
+.inputBox .email_content {
+    height: 20rem;
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding:.9rem 3rem;
+    font-size: 1.7rem;
+    color:#fff;
+    background: #664d2d;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn:hover{
+    letter-spacing: .2rem;
+    color: wheat;
+}

@@ -1,0 +1,91 @@
+.header {
+    position: sticky;
+    top:0;
+    left: 0;
+    right: 0;
+    background: #010103;
+    padding: 0.5rem;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.4);
+    z-index: 1000;
+}
+
+.header a{
+    margin:0 1rem;
+    font-size: 2rem;
+    color: #fff;
+    border-bottom: 0.1rem solid #ffffff00;
+}
+
+.header a:hover {
+    cursor: pointer;
+}
+
+.header .nav a:hover {
+    color: wheat;
+    cursor: pointer;
+    border-bottom: 0.1rem solid #d3ad7f;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.logo_container {
+    font-weight: bold;
+}
+
+.logo {
+    padding: 1rem;
+}
+
+.header .logo img{
+    height: 6rem;
+    font-size: 1rem;
+}
+
+.header ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+}
+
+.header ul a {
+    display: inline-block;
+}
+
+.menu_container {
+    position: relative;
+}
+
+.menu {
+    position: absolute;
+    z-index: 1001;
+    background-color: #010103cc;
+    display: none;
+    padding-bottom: 0.5rem;
+}
+
+.menu_container:hover .menu {
+    display: block;
+}
+
+.menu a {
+    margin: 0;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.menu a:hover {
+    background-color: #cccccc25 !important;
+}
+
+.cart_count {
+    background-color: #808080cc;
+    color: wheat;
+    padding: 0.1rem 0.45rem;
+    border-radius: 100rem;
+    font-size: 1.75rem;
+}

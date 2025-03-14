@@ -1,0 +1,57 @@
+.container {
+    background:         /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6), 
+      rgba(0, 0, 0, 0.6)
+    ), url(../../../public/images/coffee-glass-img.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 8px 8px rgb(0, 0, 0) inset;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 3rem;
+    padding-bottom: 6rem;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30rem;
+    padding: 1rem;
+  }
+
+  .column_element {
+    padding: 0.5rem;
+  }
+
+  .login,
+  .forgot_password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #eee;
+    padding: 0.25rem;
+  }
+  
+  .login a,
+  .forgot_password a {
+    color: #d3ad7f;
+    transition: 0.5s;
+  }
+  
+  .login a:hover,
+  .forgot_password a:hover {
+    cursor: pointer;
+    color: #fccf99;
+    letter-spacing: 0.05rem;
+  }

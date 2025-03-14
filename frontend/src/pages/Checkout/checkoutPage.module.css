@@ -1,0 +1,83 @@
+.page {
+    background:         /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6), 
+      rgba(0, 0, 0, 0.6)
+    ), url(../../../public/images/coffee-bag-img.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 8px 8px rgb(0, 0, 0) inset;
+}
+
+.container {
+    padding: 3rem;
+    display: flex;
+    margin: 0 0 2rem 2rem;
+    flex-wrap: wrap;
+}
+
+.content {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.inputs {
+    margin-right: 2rem; /* Ízlés szerinti távolság a két oszlop között */
+}
+
+.order {
+    background-color: rgba(50, 50, 50, 0.5);
+    margin-bottom: 1rem;
+    color: #eee;
+  }
+
+.shipping_method_container {
+    width: 40rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.7rem;
+    padding-top: 0.3rem;
+    background-color: rgba(50, 50, 50, 0.5);
+    border: 1px solid #e0e0e0;
+    color: #eee;
+}
+        
+.shipping_method_label {
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    font-size: 1rem;
+}
+        
+.shipping_method_content {
+    padding: 0 0.5rem;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.shipping_method_desc {
+    margin-left: 0.5rem;
+    overflow-wrap: break-word;
+    width: fit-content;
+}
+
+
+.shipping_method_selector {
+    margin: 0 0 1rem 0.5rem;
+    width: 20rem;
+    font-weight: bold;
+    color: black;
+}
+
+.buttons_container {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.buttons {
+    margin: 2rem;
+    width: 35rem;
+}

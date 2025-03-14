@@ -1,0 +1,102 @@
+.productReviews {
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 1rem 1rem 1rem 1rem;
+    border: 1px solid #818181;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: #cccccccc;
+  }
+  
+  .productReviews h2 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+  }
+  
+  .productReviews form {
+    margin-bottom: 25px;
+  }
+  
+  .productReviews .reviews {
+    margin-top: 50px;
+  }
+  
+  .productReviews .review {
+    margin-bottom: 30px;
+    padding: 25px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .productReviews .customer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .productReviews .customer .icon {
+    font-size: 28px;
+    margin-right: 12px;
+  }
+  
+  .productReviews .review p {
+    margin-bottom: 15px;
+  }
+  
+  .productReviews .review p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .productReviews form .form-group {
+    margin-bottom: 30px;
+  }
+  
+  .productReviews form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .productReviews form .star-rating {
+    margin-bottom: 20px;
+  }
+  .productReviews form textarea {
+    width: 100%;
+    height: 5rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: none;
+    overflow: auto;
+    transition: border-color 0.3s ease;
+  }
+  
+  .productReviews form textarea:focus {
+    outline: none; /* Távolítsa el az alapértelmezett fókusz keretet */
+    border-color: #6c757d; /* Aktív állapotban a keret színe */
+  }
+
+  .productReviews form button {
+    color: rgb(219, 219, 219);
+    background-color: rgb(146, 95, 0);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .productReviews form button:hover {
+    background-color: rgb(173, 113, 0); /* Sötétebb árnyalat hover esetén */
+  }
+  
+  .productReviews form button:focus {
+    outline: none; /* Távolítsa el az alapértelmezett fókusz keretet */
+  }
+  
+  .placeholder {
+    text-align: center;
+  }
